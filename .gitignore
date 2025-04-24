@@ -1,0 +1,66 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+ENV/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# VSCode settings (optional)
+.vscode/
+
+# Mac system files
+.DS_Store
+
+# Python dependency files
+*.egg
+*.egg-info/
+dist/
+build/
+*.manifest
+*.spec
+
+# Pipenv
+Pipfile.lock
+
+# PyInstaller
+*.spec
+
+# Pyre type checker
+.pyre/
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# Plotly output files
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.pdf
+
+# Logs
+*.log
+
+# Credentials / API keys (make sure you don’t hardcode them!)
+.env
+*.env
+.env.*
+
+# IDEs
+.idea/
