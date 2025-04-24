@@ -3,6 +3,7 @@ import plotly.graph_objects as go
 import pandas as pd
 
 
+
 class ReportGenerator:
     def __init__(self, sentiment_analyzer):
       self.sentiment_analyzer = sentiment_analyzer  # Assuming sentiment_analyzer is already set up
@@ -15,21 +16,23 @@ class ReportGenerator:
         """
         sentiment_data = self.sentiment_analyzer.get_sentiment_over_time(articles)
         
+        
         # Convert data into DataFrame
         df = pd.DataFrame(sentiment_data)
         df['date'] = pd.to_datetime(df['date'])
+        df.sort_values(by='date', inplace=True)
         
         # Calculate moving average (optional)
-        df['moving_avg'] = df['sentiment'].rolling(window=3).mean()
+        df['moving_avg'] = df['sentiment'].rolling(window=15).mean()
 
         # Create the Plotly chart
         fig = go.Figure()
 
         # Add sentiment data line
-        fig.add_trace(go.Scatter(x=df['date'], y=df['sentiment'], mode='lines+markers', name='Sentiment'))
+        fig.add_trace(go.Scatter(x=df['date'], y=df['sentiment'], mode='lines+markers', name='Sentiment', text=df['title'],  hoverinfo='x+y+text'))
 
         # Add moving average line (optional)
-        fig.add_trace(go.Scatter(x=df['date'], y=df['moving_avg'], mode='lines', name='Moving Average', line=dict(dash='dash')))
+        fig.add_trace(go.Scatter(x=df['date'], y=df['moving_avg'], mode='lines', name='Moving Average',line=dict(dash='dash')))
 
         # Customize layout
         fig.update_layout(

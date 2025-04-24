@@ -9,7 +9,7 @@ def main():
     analyzer = SentimentAnalyzer()
     reporter = ReportGenerator(analyzer)
 
-    raw_articles = fetcher.fetch_articles(keyword, 100, "2025-04-15")
+    raw_articles = fetcher.fetch_articles(keyword, "2025-03-24", 100)
     articles = []
 
     for item in raw_articles:

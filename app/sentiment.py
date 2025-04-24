@@ -2,7 +2,7 @@ from  textblob import TextBlob
 
 class SentimentAnalyzer:
   def analyze(self, article: str) -> float:
-    text = article.title + " " + article.description
+    text = article.title + " " + (article.description or "") + " " + (article.content or "")
     polarity = TextBlob(text).sentiment.polarity
     article.sentiment = polarity
     return polarity
@@ -20,7 +20,8 @@ class SentimentAnalyzer:
             polarity = self.analyze(article)
             sentiment_data.append({
                 'date': article.published_at, 
-                'sentiment': polarity
+                'sentiment': polarity,
+                'title': article.title,
             })
         
         return sentiment_data
