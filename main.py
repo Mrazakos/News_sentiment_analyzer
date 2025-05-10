@@ -2,28 +2,30 @@ from app.fetcher import NewsFetcher
 from app.sentiment import SentimentAnalyzer
 from app.article import Article
 from app.reporter import ReportGenerator
+import datetime
+import fire
 
-def main():
-    keyword = input("Enter a topic to search: ")
-    fetcher = NewsFetcher()
+def main(keyword: str, time_frame: str, articles_count: int = 100): 
+    """
+    Run the News Sentiment Analyzer.
+
+    :param keyword: The topic to search for.
+    :param time_frame: The time frame for the search ('day', 'week', or 'month').
+    :param articles_count: The number of articles to fetch (default and max is 100).
+    """
+
     analyzer = SentimentAnalyzer()
+    fetcher = NewsFetcher(analyzer)
     reporter = ReportGenerator(analyzer)
 
-    raw_articles = fetcher.fetch_articles(keyword, "2025-03-24", 100)
-    articles = []
+    articles = fetcher.fetch_articles(keyword, time_frame, articles_count)
+    
+    # Generate sentiment summary
+    reporter.generate_sentiment_summary(articles)
 
-    for item in raw_articles:
-        article = Article(
-            title=item.get("title", ""),
-            description=item.get("description", ""),
-            content=item.get("content", ""),
-            published_at=item.get("publishedAt", "")
-        )
-        analyzer.analyze(article)
-        articles.append(article)
-
+    # Generate and display the sentiment chart
     fig = reporter.generate_sentiment_over_time_chart(articles)
     fig.show()
 
 if __name__ == "__main__":
-    main()
+    fire.Fire(main)

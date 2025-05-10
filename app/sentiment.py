@@ -14,8 +14,7 @@ class SentimentAnalyzer:
         :return: List of sentiment scores and dates
         """
         sentiment_data = []
-        
-
+      
         for article in articles:
             polarity = self.analyze(article)
             sentiment_data.append({

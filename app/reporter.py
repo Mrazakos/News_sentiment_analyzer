@@ -1,7 +1,7 @@
 
 import plotly.graph_objects as go
 import pandas as pd
-
+import math
 
 
 class ReportGenerator:
@@ -44,3 +44,24 @@ class ReportGenerator:
 
         # Return the figure to be displayed or saved
         return fig
+      
+    def generate_sentiment_summary(self, articles: list):
+      articles.sort(key=lambda x: x.sentiment)
+
+      # Extract the required subsets
+      most_positive = articles[-3:]  # Last 3 articles (highest sentiment)
+      least_positive = articles[:3]  # First 3 articles (lowest sentiment)
+      most_neutral = sorted(articles, key=lambda x: abs(x.sentiment))[:3]  # Closest to 0
+
+      # Display the results
+      print("\nMost Positive Articles:")
+      for article in most_positive:
+          print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}")
+
+      print("\nLeast Positive Articles:")
+      for article in least_positive:
+          print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}")
+
+      print("\nMost Neutral Articles:")
+      for article in most_neutral:
+          print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}")
