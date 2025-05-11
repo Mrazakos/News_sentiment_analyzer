@@ -35,7 +35,7 @@ pip install -r requirements.txt
 1. Run the main script:
 
 ```bash
-python main.py
+python main.py --keyword <keyword> --timeframe <timeframe>
 ```
 
 2. Follow the prompts to input news articles or provide a file containing articles.
@@ -59,10 +59,6 @@ News_sentiment_analyzer/
 ├── requirements.txt    # Python dependencies
 └── Readme.md           # Project documentation
 ```
-
-## Contributing
-
-Contributions are welcome! Please fork the repository and submit a pull request.
 
 ## License
 
