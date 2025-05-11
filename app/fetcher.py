@@ -73,7 +73,8 @@ class NewsFetcher:
                 title=item.get("title", ""),
                 description=item.get("description", ""),
                 content=item.get("content", ""),
-                published_at=item.get("publishedAt", "")
+                published_at=item.get("publishedAt", ""),
+                link=item.get("url", "")
             )
             self.analyzer.analyze(article)
             articles.append(article)

@@ -1,12 +1,12 @@
-
+import datetime
 import plotly.graph_objects as go
 import pandas as pd
-import math
+import csv
 
 
 class ReportGenerator:
     def __init__(self, sentiment_analyzer):
-      self.sentiment_analyzer = sentiment_analyzer  # Assuming sentiment_analyzer is already set up
+      self.sentiment_analyzer = sentiment_analyzer
 
     def generate_sentiment_over_time_chart(self, articles: list):
         """
@@ -46,22 +46,56 @@ class ReportGenerator:
         return fig
       
     def generate_sentiment_summary(self, articles: list):
-      articles.sort(key=lambda x: x.sentiment)
+        """
+        Generate and display a sentiment summary for the articles.
+        :param articles: List of Article objects
+        """
+        # Sort articles by sentiment
+        articles.sort(key=lambda x: x.sentiment)
 
-      # Extract the required subsets
-      most_positive = articles[-3:]  # Last 3 articles (highest sentiment)
-      least_positive = articles[:3]  # First 3 articles (lowest sentiment)
-      most_neutral = sorted(articles, key=lambda x: abs(x.sentiment))[:3]  # Closest to 0
+        # Extract subsets
+        most_positive = articles[-3:]  # Last 3 articles (highest sentiment)
+        least_positive = articles[:3]  # First 3 articles (lowest sentiment)
+        most_neutral = sorted(articles, key=lambda x: abs(x.sentiment))[:3]  # Closest to 0
 
-      # Display the results
-      print("\nMost Positive Articles:")
-      for article in most_positive:
-          print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}")
+        # Display the results
+        print("\nMost Positive Articles:")
+        for article in most_positive:
+            print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}, Emoji: {article.sentiment_emoji}, Link: {article.link}")
 
-      print("\nLeast Positive Articles:")
-      for article in least_positive:
-          print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}")
+        print("\nLeast Positive Articles:")
+        for article in least_positive:
+            print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}, Emoji: {article.sentiment_emoji}, Link: {article.link}")
 
-      print("\nMost Neutral Articles:")
-      for article in most_neutral:
-          print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}")
+        print("\nMost Neutral Articles:")
+        for article in most_neutral:
+            print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}, Emoji: {article.sentiment_emoji}, Link: {article.link}")
+    
+    def export_sentiment_analysis(self, articles: list, keyword: str):
+        """
+        Export the sentiment analysis and all articles to a CSV file.
+        :param articles: List of Article objects
+        :param keyword: The keyword used for analysis (used in the filename)
+        """
+        # Generate a timestamped filename
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"sentiment_{keyword.replace(' ', '_')}_{timestamp}.csv"
+
+        # Sort articles by sentiment
+        articles.sort(key=lambda x: x.sentiment)
+
+        # Write to CSV
+        with open(filename, mode="w", newline="", encoding="utf-8") as file:
+            writer = csv.writer(file)
+            
+            # Write header
+            writer.writerow(["Title", "Sentiment", "Link", "Sentiment Emoji"])
+            for article in articles:
+                writer.writerow([
+                    article.title,
+                    round(article.sentiment, 2),
+                    article.link,
+                    article.sentiment_emoji  # Use the property
+                ])
+
+        print(f"Sentiment summary and all articles exported to {filename}")
