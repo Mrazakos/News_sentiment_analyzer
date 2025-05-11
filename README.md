@@ -60,10 +60,6 @@ News_sentiment_analyzer/
 └── Readme.md           # Project documentation
 ```
 
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
 ## Acknowledgments
 
 - Inspired by advancements in NLP and sentiment analysis.
