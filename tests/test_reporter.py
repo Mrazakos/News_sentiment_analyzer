@@ -3,11 +3,19 @@ from app.reporter import ReportGenerator
 from unittest.mock import MagicMock
 
 class MockArticle:
-    def __init__(self, title, sentiment, published_at):
+    def __init__(self, title, sentiment, link):
         self.title = title
         self.sentiment = sentiment
-        self.published_at = published_at
+        self.link = link
 
+    @property
+    def sentiment_emoji(self):
+        if self.sentiment > 0.1:
+            return "🟢"
+        elif self.sentiment < -0.1:
+            return "🔴"
+        else:
+            return "🟡"
 class TestReportGenerator(unittest.TestCase):
     def setUp(self):
         self.mock_analyzer = MagicMock()

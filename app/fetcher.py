@@ -16,6 +16,13 @@ class NewsFetcher:
         self.analyzer = analyzer
 
     def fetch_articles(self, keyword:str, time_frame:str, max_articles: int=100):
+        """
+        Fetch articles from the News API based on a keyword and time frame.
+        :param keyword: The topic to search for.
+        :param time_frame: The time frame for the search ('day', 'week', or 'month').
+        :param max_articles: The maximum number of articles to fetch.
+        :return: A list of Article objects.
+        """
         all_articles = []
         page = 1
         page_size = 100  # Maximum number of articles per page
