@@ -62,9 +62,12 @@ class NewsFetcher:
             all_articles.extend(articles)
 
             page += 1
-            time.sleep(1)  # Be nice to the API
+            time.sleep(1)
 
-
+        if not all_articles:
+            print(f"No articles found for keyword '{keyword}' in the given time frame '{time_frame}'.")
+            return []
+        
         articles = []
         for item in all_articles:
             if "publishedAt" in item:

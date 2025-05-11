@@ -21,6 +21,8 @@ def main(keyword: str, time_frame: str, articles_count: int = 100, export_to_csv
 
     print(f"\nAnalyzing sentiment for keyword: {keyword}")
     articles = fetcher.fetch_articles(keyword, time_frame, articles_count)
+    if not articles:
+        return
     
     # Generate sentiment summary
     reporter.generate_sentiment_summary(articles)
