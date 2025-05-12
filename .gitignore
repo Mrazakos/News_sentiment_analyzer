@@ -64,3 +64,5 @@ coverage.xml
 
 # IDEs
 .idea/
+
+.build/
