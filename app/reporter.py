@@ -1,12 +1,24 @@
+"""
+reporter.py
+This module contains the ReportGenerator class,
+which is responsible for generating reports and visualizations
+for sentiment analysis.
+
+It includes methods to create sentiment over time charts,
+generate sentiment summaries, and export the analysis
+to CSV files."""
+import csv
 import datetime
 import plotly.graph_objects as go
 import pandas as pd
-import csv
 
 
 class ReportGenerator:
+    """
+    Class to generate reports and visualizations for sentiment analysis.
+    """
     def __init__(self, sentiment_analyzer):
-      self.sentiment_analyzer = sentiment_analyzer
+        self.sentiment_analyzer = sentiment_analyzer
 
     def generate_sentiment_over_time_chart(self, articles: list):
         """
@@ -62,9 +74,8 @@ class ReportGenerator:
             yaxis_title="Sentiment Score",
             template="plotly_dark",
         )
-
         return fig
-      
+
     def generate_sentiment_summary(self, articles: list):
         """
         Generate and display a sentiment summary for the articles.
@@ -90,7 +101,7 @@ class ReportGenerator:
         print("\nMost Neutral Articles:")
         for article in most_neutral:
             print(f"Title: {article.title}, Sentiment: {round(article.sentiment, 2)}, Emoji: {article.sentiment_emoji}, Link: {article.link}")
-    
+
     def export_sentiment_analysis(self, articles: list, keyword: str):
         """
         Export the sentiment analysis and all articles to a CSV file.
@@ -107,7 +118,7 @@ class ReportGenerator:
         # Write to CSV
         with open(filename, mode="w", newline="", encoding="utf-8") as file:
             writer = csv.writer(file)
-            
+
             # Write header
             writer.writerow(["Title", "Sentiment", "Link", "Sentiment Emoji"])
             for article in articles:
@@ -119,3 +130,4 @@ class ReportGenerator:
                 ])
 
         print(f"Sentiment summary and all articles exported to {filename}")
+        
