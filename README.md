@@ -24,7 +24,7 @@ git clone https://github.com/your-username/News_sentiment_analyzer.git
 cd News_sentiment_analyzer
 ```
 
-3. Install the required dependencies:
+3. Install program:
 
 ```bash
 pip install .
