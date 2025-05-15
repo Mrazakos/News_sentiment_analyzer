@@ -11,7 +11,7 @@ class TestSentimentAnalyzer(unittest.TestCase):
     Unit tests for the SentimentAnalyzer class.
     """
     def setUp(self):
-      self.analyzer = SentimentAnalyzer()
+        self.analyzer = SentimentAnalyzer()
 
     def test_analyze(self):
         """
