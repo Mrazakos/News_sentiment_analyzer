@@ -1,8 +1,12 @@
+"""
+# News Sentiment Analyzer
+# This script fetches news articles based on a keyword, analyzes their sentiment,
+# and generates a report with visualizations.
+"""
+import fire
 from app.fetcher import NewsFetcher
 from app.sentiment import SentimentAnalyzer
-from app.article import Article
 from app.reporter import ReportGenerator
-import fire
 
 def run(keyword: str, time_frame: str, articles_count: int = 100, export_to_csv: bool = False): 
     """
@@ -16,7 +20,7 @@ def run(keyword: str, time_frame: str, articles_count: int = 100, export_to_csv:
     articles = fetcher.fetch_articles(keyword, time_frame, articles_count)
     if not articles:
         return
-    
+
     reporter.generate_sentiment_summary(articles)
     fig = reporter.generate_sentiment_over_time_chart(articles)
     fig.show()
@@ -26,6 +30,9 @@ def run(keyword: str, time_frame: str, articles_count: int = 100, export_to_csv:
 
 # 🔧 New entry point function
 def main():
+    """
+    Main entry point for the script.
+    """
     fire.Fire(run)
 
 if __name__ == "__main__":

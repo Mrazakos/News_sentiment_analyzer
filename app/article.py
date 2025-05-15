@@ -1,8 +1,16 @@
+"""
+# News Sentiment Analyzer
+# This script fetches news articles based on a keyword, analyzes their sentiment,
+# and generates a report with visualizations.
+# """
 from dataclasses import dataclass
 from typing import Optional
 
 @dataclass
 class Article:
+    """
+    A class to represent a news article.
+    """
     title: str
     description: str
     content: str

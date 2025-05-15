@@ -4,8 +4,14 @@ from app.fetcher import NewsFetcher
 from app.sentiment import SentimentAnalyzer
 
 class TestNewsFetcher(unittest.TestCase):
+    """
+    Unit tests for the NewsFetcher class.
+    """
     @patch("app.fetcher.requests.get") 
     def test_fetch_articles_success(self, mock_get):
+        """
+        Test the successful fetching of articles from the News API.
+        """
         # Mock SentimentAnalyzer
         mock_analyzer = SentimentAnalyzer()
         mock_analyzer.analyze = MagicMock()  # prevent it from doing real work
@@ -36,6 +42,7 @@ class TestNewsFetcher(unittest.TestCase):
         self.assertEqual(len(articles), 1)
         self.assertEqual(articles[0].title, "Test Article")
         self.assertEqual(articles[0].link, "http://example.com/test-article")
+        
         
     @patch("app.fetcher.requests.get")
     def test_fetch_articles_no_results(self, mock_get):

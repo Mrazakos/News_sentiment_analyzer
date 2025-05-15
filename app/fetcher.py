@@ -1,8 +1,13 @@
+"""
+# News Sentiment Analyzer
+# This script fetches news articles based on a keyword, analyzes their sentiment,
+# and generates a report with visualizations.
+# """
 import os
-import requests
-from dotenv import load_dotenv
 import time
 import datetime
+import requests
+from dotenv import load_dotenv
 
 from app.article import Article
 from app.sentiment import SentimentAnalyzer
@@ -10,6 +15,10 @@ from app.sentiment import SentimentAnalyzer
 load_dotenv()
 
 class NewsFetcher:
+    """
+    Class to fetch news articles from the News API based on a keyword and time frame.
+    It uses the News API to retrieve articles and analyze their sentiment.
+    """
     def __init__(self, analyzer: SentimentAnalyzer):
         self.api_key = os.getenv("NEWS_API_KEY")
         self.base_url = "https://newsapi.org/v2/everything"
@@ -37,14 +46,12 @@ class NewsFetcher:
             from_date = today - datetime.timedelta(days=30)
         else:
             print("Invalid time frame. Please enter 'day', 'week', or 'month'.")
-            return
+            return []
 
         from_date = from_date.strftime("%Y-%m-%dT%H:%M:%S")
-        
         while len(all_articles) < max_articles and page * page_size <= max_articles:
             if max_articles - len(all_articles) < page_size:
-              page_size = max_articles - len(all_articles)
-              
+                page_size = max_articles - len(all_articles)
             params = {
                 "q": keyword,
                 "language": "en",
@@ -55,7 +62,7 @@ class NewsFetcher:
                 "apiKey": self.api_key,
             }
 
-            response = requests.get(self.base_url, params=params)
+            response = requests.get(self.base_url, params=params, timeout=10)
             data = response.json()
 
             if response.status_code != 200:
@@ -74,11 +81,12 @@ class NewsFetcher:
         if not all_articles:
             print(f"No articles found for keyword '{keyword}' in the given time frame '{time_frame}'.")
             return []
-        
+
         articles = []
         for item in all_articles:
             if "publishedAt" in item:
-                item["publishedAt"] = datetime.datetime.strptime(item["publishedAt"], "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d %H:%M:%S")
+                item["publishedAt"] = datetime.datetime.strptime(item["publishedAt"],
+                        "%Y-%m-%dT%H:%M:%SZ").strftime("%Y-%m-%d %H:%M:%S")
             article = Article(
                 title=item.get("title", ""),
                 description=item.get("description", ""),
