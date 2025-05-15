@@ -27,18 +27,17 @@ cd News_sentiment_analyzer
 3. Install the required dependencies:
 
 ```bash
-pip install -r requirements.txt
+pip install .
 ```
 
 ## Usage
 
-1. Run the main script:
+1. Run the script:
 
 ```bash
-python main.py --keyword <keyword> --timeframe <timeframe>
+mynews --keyword <keyword> --timeframe <timeframe> (optional --e)
 ```
 
-2. Follow the prompts to input news articles or provide a file containing articles.
 
 ## Dependencies
 
@@ -48,17 +47,6 @@ python main.py --keyword <keyword> --timeframe <timeframe>
   - `pandas`
   - `requests`
   - `scikit-learn`
-
-## Project Structure
-
-```
-News_sentiment_analyzer/
-├── data/               # Folder for input/output data
-├── src/                # Source code
-├── tests/              # Unit tests
-├── requirements.txt    # Python dependencies
-└── Readme.md           # Project documentation
-```
 
 ## Acknowledgments
 
